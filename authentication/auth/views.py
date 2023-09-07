@@ -5,7 +5,7 @@ from auth import forms
 from django.contrib.auth import authenticate #this is for authenication in django 
 
 def auth_login(request):
-    loginform=forms.LoginForm()
+    loginform= forms.LoginForm()
     error= None
     
     if request.method == "POST":
@@ -13,7 +13,7 @@ def auth_login(request):
         if loginform.is_valid():
             username=loginform.cleaned_data['username']  #this is used to do the filter sql injected data 
             password=loginform.cleaned_data['password']
-            user=authenticate(username="username",password="password")
+            user=authenticate(username= username,password= password)
             if user:
                 return HttpResponseRedirect('/')
             else:
@@ -21,7 +21,7 @@ def auth_login(request):
                 
             
     context={"form":loginform,
-             "error":error
+             "error":error  
              }
-    return render(request, 'auth/login.html',context)
+    return render(request, 'auth/login.html', context)
     
