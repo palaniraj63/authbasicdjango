@@ -2,7 +2,8 @@ from django.urls import path
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from auth import forms 
-from django.contrib.auth import authenticate #this is for authenication in django 
+from django.contrib.auth import authenticate ,login,logout #this is for authenication in django 
+# from django.contrib.auth import login
 
 def auth_login(request):
     loginform= forms.LoginForm()
@@ -15,6 +16,8 @@ def auth_login(request):
             password=loginform.cleaned_data['password']
             user=authenticate(username= username,password= password)
             if user:
+                print(user)
+                login(request,user)
                 return HttpResponseRedirect('/')
             else:
                 error="invalid usename or passwoed "
